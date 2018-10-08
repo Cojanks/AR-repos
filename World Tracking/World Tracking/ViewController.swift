@@ -32,6 +32,8 @@ class ViewController: UIViewController {
         self.sceneview.session.run(configuration)
         // Do any additional setup after loading the view, typically from a nib.
         
+//        Timer
+//        Should have the timer fire every... half second and render a new node/cirle?
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(ViewController.pingPing), userInfo: nil, repeats: true)
         
         
