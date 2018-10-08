@@ -15,6 +15,13 @@ class ViewController: UIViewController {
 
 //    Lets shorten this ARWorldTracking yadda yadda
     let configuration = ARWorldTrackingConfiguration()
+    var timer = Timer()
+    
+    @objc func pingPing() {
+        print("3 seconds have passed")
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +31,10 @@ class ViewController: UIViewController {
 //        when the app loads, start a session
         self.sceneview.session.run(configuration)
         // Do any additional setup after loading the view, typically from a nib.
+        
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(ViewController.pingPing), userInfo: nil, repeats: true)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +47,7 @@ class ViewController: UIViewController {
     @IBAction func add(_ sender: Any) {
         print("Add button pressed")
         let node = SCNNode()
-        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+        node.geometry = SCNBox(width: 0.01, height: 0.01, length: 0.01, chamferRadius: 0)
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.cyan
         //        SCNVector3 is based on a 3-axis position: X,Y,Z
         node.position = SCNVector3(0,0,0)
@@ -46,6 +57,7 @@ class ViewController: UIViewController {
     
     @IBAction func reset(_ sender: Any) {
         restartSession()
+        timer.invalidate()
     }
     
     func restartSession() {
